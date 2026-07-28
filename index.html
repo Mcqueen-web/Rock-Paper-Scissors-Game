@@ -3,94 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock Paper Scissors</title>
-
+  <meta name="description" content="A clean and playful Rock Paper Scissors game.">
+  <title>Hand Clash | Rock Paper Scissors</title>
   <link rel="stylesheet" href="1.css">
 </head>
-
 <body>
+  <main class="game-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Hand Clash home">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>HAND CLASH</span>
+      </a>
+      <div class="round-pill" aria-live="polite">
+        Round <strong id="roundNumber">1</strong>
+      </div>
+    </header>
 
-  <div class="container">
+    <section class="hero-copy">
+      <p class="eyebrow">FIRST TO 10 WINS</p>
+      <h1>Choose your move.<br><span>Outsmart the machine.</span></h1>
+      <p>Rock crushes scissors. Scissors cuts paper. Paper covers rock.</p>
+    </section>
 
-    <h1>Rock Paper Scissors</h1>
+    <section class="score-board" aria-label="Scoreboard">
+      <article class="score-card player-score-card">
+        <div>
+          <span class="score-label">YOU</span>
+          <p>Human instinct</p>
+        </div>
+        <strong id="playerScore">0</strong>
+      </article>
 
-    <!-- SCORE BOARD -->
-    <div class="score-board">
+      <div class="versus" aria-hidden="true">VS</div>
 
-      <div class="score-box">
-        Player Score:
-        <span id="playerScore">0</span>
+      <article class="score-card computer-score-card">
+        <strong id="computerScore">0</strong>
+        <div>
+          <span class="score-label">CPU</span>
+          <p>Cold calculation</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="arena" aria-label="Game arena">
+      <article class="fighter player-fighter">
+        <div class="fighter-heading">
+          <div>
+            <p class="fighter-kicker">YOUR SIDE</p>
+            <h2>You</h2>
+          </div>
+          <span id="playerChoiceLabel" class="choice-tag">Waiting</span>
+        </div>
+        <div class="image-stage">
+          <span class="stage-number">01</span>
+          <img id="player1Image" src="images/hand1.jpg" alt="Your current choice">
+        </div>
+      </article>
+
+      <div class="result-panel" aria-live="polite" aria-atomic="true">
+        <span id="resultIcon" class="result-icon" aria-hidden="true">✦</span>
+        <p class="result-kicker">ROUND STATUS</p>
+        <h2 id="result">Choose your move</h2>
+        <p id="resultDetail">Use the buttons below or press R, P, or S.</p>
       </div>
 
-      <div class="score-box">
-        Computer Score:
-        <span id="computerScore">0</span>
+      <article class="fighter computer-fighter">
+        <div class="fighter-heading">
+          <div>
+            <p class="fighter-kicker">OPPONENT</p>
+            <h2>Computer</h2>
+          </div>
+          <span id="computerChoiceLabel" class="choice-tag">Waiting</span>
+        </div>
+        <div class="image-stage">
+          <span class="stage-number">02</span>
+          <img id="player2Image" src="images/hand2.jpg" alt="Computer's current choice">
+        </div>
+      </article>
+    </section>
+
+    <section class="controls" aria-labelledby="moveHeading">
+      <div class="controls-heading">
+        <div>
+          <p class="eyebrow">MAKE YOUR PICK</p>
+          <h2 id="moveHeading">One move. No second guesses.</h2>
+        </div>
+        <p class="shortcut-note">Keyboard: <kbd>R</kbd> <kbd>P</kbd> <kbd>S</kbd></p>
       </div>
 
+      <div class="move-grid">
+        <button class="move-button" type="button" data-choice="rock">
+          <span class="move-icon" aria-hidden="true">✊</span>
+          <span class="move-copy"><strong>Rock</strong><small>Crushes scissors</small></span>
+          <span class="key">R</span>
+        </button>
+        <button class="move-button" type="button" data-choice="paper">
+          <span class="move-icon" aria-hidden="true">✋</span>
+          <span class="move-copy"><strong>Paper</strong><small>Covers rock</small></span>
+          <span class="key">P</span>
+        </button>
+        <button class="move-button" type="button" data-choice="scissors">
+          <span class="move-icon" aria-hidden="true">✌️</span>
+          <span class="move-copy"><strong>Scissors</strong><small>Cuts paper</small></span>
+          <span class="key">S</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="game-footer">
+      <div class="history-wrap">
+        <div class="history-heading">
+          <span>RECENT ROUNDS</span>
+          <button id="clearHistoryBtn" type="button" class="text-button">Clear</button>
+        </div>
+        <div id="historyList" class="history-list">
+          <p class="empty-history">Your last five rounds will appear here.</p>
+        </div>
+      </div>
+
+      <button id="resetBtn" class="reset-button" type="button">
+        <span aria-hidden="true">↻</span>
+        Restart game
+      </button>
+    </section>
+  </main>
+
+  <div id="gameOverModal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <span id="modalIcon" class="modal-icon" aria-hidden="true">🏆</span>
+      <p class="eyebrow">MATCH COMPLETE</p>
+      <h2 id="modalTitle">You won!</h2>
+      <p id="modalMessage">Final score: 10–0</p>
+      <button id="playAgainBtn" class="play-again-button" type="button">Play again</button>
     </div>
-
-    <!-- PLAYERS -->
-    <div class="players">
-
-      <!-- PLAYER -->
-      <div class="player-box">
-
-        <h2>Player</h2>
-
-        <div class="image-box">
-          <img
-            id="player1Image"
-            src="images/hand1.jpg"
-            alt="Player"
-          >
-        </div>
-
-        <div class="buttons">
-
-          <button onclick="showChoice('rock')">
-            Rock
-          </button>
-
-          <button onclick="showChoice('paper')">
-            Paper
-          </button>
-
-          <button onclick="showChoice('scissors')">
-            Scissors
-          </button>
-
-        </div>
-
-      </div>
-
-      <!-- COMPUTER -->
-      <div class="player-box">
-
-        <h2>Computer</h2>
-
-        <div class="image-box">
-          <img
-            id="player2Image"
-            src="images/hand2.jpg"
-            alt="Computer"
-          >
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- RESULT -->
-    <h2 id="result">Choose your move</h2>
-
-    <!-- RESET BUTTON -->
-    <button id="resetBtn" onclick="resetGame()">
-      Restart Game
-    </button>
-
   </div>
 
   <script src="1.js"></script>
-
 </body>
 </html>
